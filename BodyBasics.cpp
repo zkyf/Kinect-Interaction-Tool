@@ -13,6 +13,8 @@
 #include <process.h>
 #include <stdlib.h>
 #include <Shellapi.h>
+//#include "hmm.h"
+//#include "hmmkinect.h"
 
 static const float c_JointThickness = 3.0f;
 static const float c_TrackedBoneThickness = 6.0f;
@@ -30,6 +32,7 @@ bool recording = false;
 string nowconfig = "";
 HACCEL hAccel;
 wstring nowtemplate = L"";
+//HMM hmm;
 
 bool loadtemplate(int num, string filename)
 {
@@ -1025,7 +1028,6 @@ void CBodyBasics::ljxProcessGesture(Joint *joints, HandState hsLeft, HandState h
 	Joint Right_LS = RightHandFilter.Filter_LeastSquare(Right_Median);
 	Joint Right_Particle = RightHandFilter.Filter_Particle(Right_Median);
 
-
 	Joint Left_Median  = LeftHandFilter.Filter_Median(joints[JointType_HandLeft]);    //中位数滤波
 	Joint Left_LS = LeftHandFilter.Filter_LeastSquare(joints[JointType_HandLeft]);
 	Joint Left_Average = LeftHandFilter.Filter_Average(Left_Median);                 //带权均值滤波
@@ -1035,12 +1037,11 @@ void CBodyBasics::ljxProcessGesture(Joint *joints, HandState hsLeft, HandState h
 	p2draw = 2;
 	pdrawlist.push_back(Right_Average);
 	//pdrawlist.push_back(Right_LS);
-	pdrawlist.push_back(Right_Particle);  //左手黑点
+	//pdrawlist.push_back(Right_Particle);  //左手黑点
 	pdrawlist.push_back(joints[JointType_HandRight]);
 
 	brushlist.push_back(BrushBlue);
 	brushlist.push_back(BrushBlack);
-	brushlist.push_back(BrushGreen);
 
 	//肩膀均值滤波
 	ljxCalShoulderPos(joints[JointType_ShoulderRight], Right_Median, hsRight, ljx_m_sRight);
@@ -1053,7 +1054,7 @@ void CBodyBasics::ljxProcessGesture(Joint *joints, HandState hsLeft, HandState h
 	{
 		if (record && recording)
 		{
-			ljxWriteRecord(joints[JointType_HandLeft], Left_LS, hsRight);
+			ljxWriteRecord(joints[JointType_HandRight], Right_Median, hsRight);
 		}
 		Joint Relative;
 		Relative.Position.X = Right_Average.Position.X - ljx_m_sRight.ShoulderCenter.X;

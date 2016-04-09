@@ -75,6 +75,7 @@ class HMM
 
 	public:
 		// constructor & destructor
+	  HMM();
 		HMM(int _K, int _N, int _T, double _thres = 0.5);
 		HMM(HMM &_hmm);
 		~HMM();
@@ -98,6 +99,12 @@ class HMM
 		void operator=(HMM &_hmm);
 };
 
+HMM::HMM()
+{
+	A = NULL;
+	B = NULL;
+	Pi = NULL;
+}
 
 HMM::HMM(int _K, int _N, int _T, double _thres) :
 K(_K), N(_N), T(_T), thres(_thres)

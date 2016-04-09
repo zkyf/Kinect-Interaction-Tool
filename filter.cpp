@@ -105,7 +105,7 @@ void Filter::Average(Joint joint, double &dx, double &dy)
 		{
 			pos = Average_num - 1;
 		}
-		sum += i;
+		sum += Average_num - i;
 	}
 	dx /= sum;
 	dy /= sum;
@@ -284,15 +284,27 @@ void Filter::Kalman(Joint joint, double &dx, double &dy)
 		Matrix ex(4, 4), ey(4, 4);
 		ex = Fx*Kalman_ex*(!Fx);
 		ey = Fy*Kalman_ey*(!Fy);
+		//cout << "ex" << endl; ex.print();
+		//cout << "ey" << endl; ey.print();
 
 		Matrix Bx(4, 1), By(4, 1);
+		//cout << "!Kalman_C" << endl; (!Kalman_C).print();
+		//cout << "Kalman_vx" << endl; Kalman_vx.print();
+		//cout << "Kalman_C" << endl; Kalman_C.print();
+		//cout << "!Kalman_C" << endl; (!Kalman_C).print();
+		//cout << "Kalman_C*ex" << endl; (Kalman_C*ex).print();
+		//cout << "Kalman_C*ex*(!Kalman_C)" << endl; (Kalman_C*ex*(!Kalman_C)).print();
+		//cout << "(~(Kalman_vx + Kalman_C*ex*(!Kalman_C)))" << endl;
+		//(~(Kalman_vx + Kalman_C*ex*(!Kalman_C))).print();
 		Bx = ex*(!Kalman_C)*(~(Kalman_vx + Kalman_C*ex*(!Kalman_C)));
+		//cout << "Bx" << endl; Bx.print();
 		By = ey*(!Kalman_C)*(~(Kalman_vy + Kalman_C*ey*(!Kalman_C)));
 		
 		Matrix I4(4, 4);
 		I4.SetIdentity();
 		Kalman_Sx = (I4 - Bx*Kalman_C)*(Fx*Kalman_Sx + Kalman_Gx) +
 			Bx*Matrix(1, 1, new double[1] {joint.Position.X});
+		//cout << "Kalman_Sx" << endl; Kalman_Sx.print();
 		Kalman_Sy = (I4 - By*Kalman_C)*(Fy*Kalman_Sy + Kalman_Gy) +
 			By*Matrix(1, 1, new double[1] {joint.Position.Y});
 

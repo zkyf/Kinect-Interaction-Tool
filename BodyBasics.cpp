@@ -13,8 +13,8 @@
 #include <process.h>
 #include <stdlib.h>
 #include <Shellapi.h>
-//#include "hmm.h"
-//#include "hmmkinect.h"
+#include "hmm.h"
+#include "hmmkinect.h"
 
 static const float c_JointThickness = 3.0f;
 static const float c_TrackedBoneThickness = 6.0f;
@@ -32,7 +32,7 @@ bool recording = false;
 string nowconfig = "";
 HACCEL hAccel;
 wstring nowtemplate = L"";
-//HMM hmm;
+HMM hmm;
 
 bool loadtemplate(int num, string filename)
 {

@@ -8,6 +8,8 @@
 
 using namespace std;
 
+#ifndef _HMM_H
+#define _HMM_H
 typedef vector<int> Sequence;
 
 struct HMMResult
@@ -97,10 +99,18 @@ class HMM
 
 		// operators
 		void operator=(HMM &_hmm);
+
+		void clear()
+		{
+			*this = HMM();
+		}
 };
 
 HMM::HMM()
 {
+	K = 0;
+	N = 0;
+	T = 0;
 	A = NULL;
 	B = NULL;
 	Pi = NULL;
@@ -679,3 +689,4 @@ void HMM::operator=(HMM &_hmm)
 		C.push_back(*i);
 	}
 }
+#endif

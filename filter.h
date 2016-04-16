@@ -1,5 +1,5 @@
 #include "Matrix.h"
-#include "public.h"
+#include "KinectTools.h"
 #include <opencv2/opencv.hpp>
 #include <math.h>
 

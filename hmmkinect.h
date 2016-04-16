@@ -14,7 +14,6 @@ using namespace std;
 #ifndef _HMMKINECT_H
 #define _HMMKINECT_H
 
-const double EPS = 1e-10;
 const double SteadyThres = 0.03;
 
 void clearZ(JOINTS& Joints)

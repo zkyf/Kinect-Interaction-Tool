@@ -11,7 +11,6 @@
 #include <string>
 #include <iostream>
 #include <time.h>
-#include "filter.h"
 #include "dollar.h"
 
 using namespace std;

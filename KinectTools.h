@@ -24,6 +24,7 @@ typedef CameraSpacePoint _3DPoint;
 class JOINT : public Joint
 {
 	public:
+  JOINT();
 	JOINT(Joint p);
 	double length();
 	void RotX(double radian);

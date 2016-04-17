@@ -1,5 +1,6 @@
 #include "KinectTools.h"
 
+JOINT::JOINT() {}
 JOINT::JOINT(Joint p) : Joint(p) {}
 double JOINT::length()
 {

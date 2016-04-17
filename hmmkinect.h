@@ -24,7 +24,7 @@ void clearZ(JOINTS& Joints)
 	}
 }
 
-void SequenceGen(JOINTS Joints, Sequence& seq)
+void SequenceGen(JOINTS& Joints, Sequence& seq)
 {
 	seq.clear();
 	for (int i = 0; i < Joints.size() - 1; i++)

@@ -33,6 +33,9 @@ string nowconfig = "";
 HACCEL hAccel;
 wstring nowtemplate = L"";
 HMM hmm;
+int hmm_temp_count = 0;
+vector<Sequence> hmm_templates;
+const int T = 32;
 
 bool loadtemplate(int num, string filename)
 {
@@ -41,12 +44,23 @@ bool loadtemplate(int num, string filename)
 	{
 		return false;
 	}
+  JOINTS tem;
+  JOINT joint;
+  Sequence seq;
 	vector<VEC> v;
 	VEC t;
 	while (in >> t)
 	{
 		v.push_back(t);
+    joint.Position.X = t.x;
+    joint.Position.Y = t.y;
+    tem.push_back(joint);
 	}
+  tem.Normalize();
+  tem.Resample(T+1);
+  SequenceGen(tem, seq);
+  hmm_temp_count++;
+  hmm_templates.push_back(seq);
 	v = normalize(v);
 	templates.push_back(v);
 	return true;
@@ -56,12 +70,15 @@ void loadConfig(wstring filename, wstring path)
 {
 	templates.clear();
 	actionlist.clear();
+  hmm_templates.clear();
+  hmm_temp_count = 0;
 	string spath(path.begin(), path.end());
 
 	fstream config(filename, ios::in);
 	if (config.fail())
 	{
 		MessageBoxA(NULL, "No such config file exist!", "Error", MB_OK);
+    return;
 	}
 	while (true)
 	{

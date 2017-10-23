@@ -99,7 +99,7 @@ JOINTS::JOINTS(JOINTS& ps)
 		push_back(ps[i]);
 	}
 }
-JOINTS JOINTS::operator=(JOINTS& ps)
+void JOINTS::operator=(JOINTS& ps)
 {
 	clear();
 	for (int i = 0; i < ps.size(); i++)

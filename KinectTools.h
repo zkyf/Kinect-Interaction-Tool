@@ -46,7 +46,7 @@ class JOINTS : public _JOINTS
 	public:
 	JOINTS();
 	JOINTS(JOINTS& ps);
-	JOINTS operator=(JOINTS& ps);
+	void operator=(JOINTS& ps);
 	double length();
 	void RotX(double r);
 	void RotY(double r);
